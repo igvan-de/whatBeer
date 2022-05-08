@@ -1,17 +1,19 @@
 <template>
+
     <section>
         <div class="wrapper">
             <div class="welcome">
-                <h2>Welcome by </h2><h1>whatBeer</h1>
+                <h2>Welcome by </h2><h1>what<span class="beerFoam">B</span>eer</h1>
             </div>
 
             <hr />
 
             <div class="slogan">
-                <p>The only helper to find the perfect beer you need!</p>
+                <p>The only helper to find the perfect beer <span class="bold">you</span> need!</p>
             </div>
         </div>
     </section>
+
 </template>
 <script>
 export default({
@@ -50,10 +52,18 @@ export default({
                 font-weight: 900;
             }
 
+            .beerFoam {
+                font-size: 7rem;
+                font-weight: 900;
+                background: url('../assets/images/beerFoam.jpeg');
+                -webkit-text-fill-color: transparent;
+                -webkit-background-clip: text;
+            }
+
         hr {
             display: flex;
             border: 1px solid orange;
-            width: 40%;
+            width: 50%;
         }
 
         .slogan {
@@ -62,6 +72,12 @@ export default({
 
             .slogan p {
                 font-size: 1.3rem;
+            }
+            
+            .bold {
+                font-family: 'Asap';
+                text-transform: uppercase;
+                font-weight: 600;
             }
 
 </style>
