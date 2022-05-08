@@ -1,8 +1,8 @@
 <template>
   <main>
-    <!-- <WhatBeer /> -->
+    <HomePage />
   </main>
 </template>
 <script setup>
-  import WhatBeer from "@/views/WhatBeerView.vue";
+  import HomePage from "@/components/HomePage.vue";
 </script>
