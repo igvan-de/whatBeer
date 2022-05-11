@@ -2,6 +2,7 @@
 
     <section>
         <div class="wrapper">
+
             <div class="welcome">
                 <h2>Welcome by </h2><h1>what<span class="beerFoam">B</span>eer</h1>
             </div>
@@ -11,6 +12,51 @@
             <div class="slogan">
                 <p>The only helper to find the perfect beer <span class="bold">you</span> need!</p>
             </div>
+
+        </div>
+    </section>
+
+    <section>
+        <!-- call items to display about this page -->
+    </section>
+
+    <section>
+        <div class="beerRecommender">
+          
+            <div class="beerRecommender_header">
+                <h2>Find out <span class="beerRecommender_header-bold">what<span class="beerFoam">B</span>eer</span> suits your dish or ingredient</h2>
+            </div>
+
+            <div class="beerRecommender_searchBar">
+                <input 
+                    type="text"
+                    placeholder="Type in ingredient or dish..."
+                    class="beerRecommender_searchBar-search"
+                    v-model="foodRecipe"
+                    @keypress.enter="getRecommendedBeers">
+                
+                <button 
+                    class="beerRecommender_searchBar-searchBtn"
+                    v-if="foodRecipe != ''"
+                    @click="getRecommendedBeers">
+                    <img src="../assets/images/search.png">
+                </button>
+                
+                <button 
+                    class="beerRecommender_searchBar-cancelBtn"
+                    v-if="recommendedBeers.length > 0"
+                    @click="deleteRecommendedBeers">
+                    <img src="../assets/images/unchecked.png">
+                </button>
+            </div>
+
+            <div
+                class="recommendedBeer"
+                v-for="beer of recommendedBeers"
+                :key="beer.id">
+                {{beer.name}}
+            </div>
+
         </div>
     </section>
 
@@ -18,12 +64,22 @@
 <script>
 export default({
   data: () => ({
+      foodRecipe: ""
     }),
   methods: {
+    getRecommendedBeers: function() {
+        this.$store.dispatch('fetchRecommendations', this.foodRecipe);
     },
-  computed: {
-      
+    deleteRecommendedBeers: function() {
+        this.foodRecipe = "";
+        this.$store.dispatch('deleteRecommendations');
     }
+  },
+  computed: {
+    recommendedBeers() {
+        return this.$store.getters.recommendedBeers;
+    }
+  }
 });
 </script>
 <style scoped>
@@ -55,7 +111,7 @@ export default({
         hr {
             display: flex;
             border: 1px solid orange;
-            width: 70%;
+            width: 40rem;
         }
 
         .slogan {
@@ -71,5 +127,62 @@ export default({
                 text-transform: uppercase;
                 font-weight: 600;
             }
+
+    .beerRecommender {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 15rem;
+        gap: 1.3rem;
+    }
+
+        .beerRecommender_header {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .beerRecommender_header-bold {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .beerRecommender_searchBar {
+            display: flex;
+            align-items: center;
+        }
+
+            .beerRecommender_searchBar-search {
+                display: flex;
+                width: 40rem;
+                border: 1px solid var(--vt-c-black-mute);
+                border-radius: 5px;
+                padding: 10px;
+                justify-items: center;
+            }
+
+            .beerRecommender_searchBar-searchBtn {
+                width: 1.6rem;
+                height: 1.6rem;
+                border: none;
+                background: none;
+                margin-right: 0.3rem;
+            }
+
+                .beerRecommender_searchBar-searchBtn img {
+                    width: 1.6rem;
+                    height: 1.6rem;
+                }
+
+            .beerRecommender_searchBar-cancelBtn {
+                width: 1.6rem;
+                height: 1.6rem;
+                border: none;
+                background: none;
+            }
+
+                .beerRecommender_searchBar-cancelBtn img {
+                    width: 1.6rem;
+                    height: 1.6rem;
+                }
 
 </style>

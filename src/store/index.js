@@ -24,11 +24,21 @@ getters: {
     error:              state => state.error
 },
 mutations: {
-    FETCHBEERS(state, payload){
+    FETCHBEERS(state, payload) {
         state.listedBeers = payload;
         console.log(state.listedBeers);
     },
-    FETCHRECOMMENDATIONS(state, payload){},
+    FETCHRECOMMENDATIONS(state, payload) {
+        state.recommendedBeers = payload;
+        console.log('recom', state.recommendedBeers);
+    },
+    DELETERECOMMENDATIONS(state) {
+        if (state.recommendedBeers != null) {
+            console.log('before delete', state.recommendedBeers);
+            state.recommendedBeers = [];
+            console.log('after delete', state.recommendedBeers);
+        }
+    },
     FETCHBEERDETAILS(state, payload){},
     CLOSEDETAILS(state, payload){}
 },
@@ -41,10 +51,18 @@ actions: {
             });
     },
     fetchRecommendations({commit}, payload) {
-
+        axios
+        .get(`https://api.punkapi.com/v2/beers?food=${payload}`)
+        .then(result =>{
+            commit('FETCHRECOMMENDATIONS', result.data)
+        });
+    },
+    deleteRecommendations({commit}) {
+        commit('DELETERECOMMENDATIONS');
     },
     fetchBeedDetails({commit}, payload) {
 
-    }
+    },
+
 }
 })
