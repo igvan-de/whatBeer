@@ -52,18 +52,10 @@ export default({
                 font-weight: 900;
             }
 
-            .beerFoam {
-                font-size: 7rem;
-                font-weight: 900;
-                background: url('../assets/images/beerFoam.jpeg');
-                -webkit-text-fill-color: transparent;
-                -webkit-background-clip: text;
-            }
-
         hr {
             display: flex;
             border: 1px solid orange;
-            width: 50%;
+            width: 70%;
         }
 
         .slogan {

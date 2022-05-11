@@ -3,7 +3,7 @@
   <nav class="navBar">
     <RouterLink to="/" class="navItem">Home</RouterLink>
     <RouterLink to="/about" class="navItem">About</RouterLink>
-    <RouterLink to="/whatBeer" class="navItem">Beers</RouterLink>
+    <RouterLink to="/beers" class="navItem">Beers</RouterLink>
   </nav>
   
 </template>

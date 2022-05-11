@@ -25,8 +25,8 @@ getters: {
 },
 mutations: {
     FETCHBEERS(state, payload){
-        console.log('payload', payload);
         state.listedBeers = payload;
+        console.log(state.listedBeers);
     },
     FETCHRECOMMENDATIONS(state, payload){},
     FETCHBEERDETAILS(state, payload){},
@@ -37,7 +37,6 @@ actions: {
         axios
             .get(`https://api.punkapi.com/v2/beers`)
             .then(result =>{
-                console.log('result', result);
                 commit('FETCHBEERS', result.data)
             });
     },

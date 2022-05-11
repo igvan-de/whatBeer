@@ -74,6 +74,29 @@ body {
   scroll-behavior: smooth;
 }
 
+.logoText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--vt-c-divider-dark-1);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 15px;
+}
+
+  .logoText:hover {
+    transform: scale(90%);
+  }
+
+.beerFoam {
+  font-weight: 900;
+  background: url('../assets/images/beerFoam.jpeg');
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
 @font-face {
   font-family: "Asap";
   font-display: auto;
