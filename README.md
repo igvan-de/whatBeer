@@ -1,6 +1,9 @@
 # whatBeer
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a single page webapp. On this webapp you can find a beer you like by searching on a dish you want to cook or by ingredient you are going to use.
+All details of that beer are displayed and many more..
+
+This webapp made use of The PunkApi. The Punk API takes Brewdog's DIY Dog and turns it into a searchable, filterable API that's completely free and open source.
 
 ## Recommended IDE Setup
 
