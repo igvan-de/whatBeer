@@ -32,12 +32,12 @@
                     type="text"
                     placeholder="Type in ingredient or dish..."
                     class="beerRecommender_searchBar-search"
-                    v-model="foodRecipe"
+                    v-model="searchTerm"
                     @keypress.enter="getRecommendedBeers">
                 
                 <button 
                     class="beerRecommender_searchBar-searchBtn"
-                    v-if="foodRecipe != ''"
+                    v-if="searchTerm != ''"
                     @click="getRecommendedBeers">
                     <img src="../assets/images/search.png">
                 </button>
@@ -50,8 +50,15 @@
                 </button>
             </div>
 
+            <div 
+            class="beerRecommender_errorMessage"
+            v-if="recommendedBeers.length === 0 && loading === true">
+                <img src="../assets/images/error.png">
+                <p>Fill in correct search term</p>
+            </div>
+
             <div
-                class="recommendedBeer"
+                class="beerRecommender_recommendedBeer"
                 v-for="beer of recommendedBeers"
                 :key="beer.id">
                 {{beer.name}}
@@ -64,14 +71,17 @@
 <script>
 export default({
   data: () => ({
-      foodRecipe: ""
+      searchTerm: "",
+      loading: false
     }),
   methods: {
     getRecommendedBeers: function() {
-        this.$store.dispatch('fetchRecommendations', this.foodRecipe);
+        this.loading = true;
+        this.$store.dispatch('fetchRecommendations', this.searchTerm);
     },
     deleteRecommendedBeers: function() {
-        this.foodRecipe = "";
+        this.loading = false;
+        this.searchTerm = "";
         this.$store.dispatch('deleteRecommendations');
     }
   },
@@ -184,5 +194,20 @@ export default({
                     width: 1.6rem;
                     height: 1.6rem;
                 }
+
+        .beerRecommender_errorMessage {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+            .beerRecommender_errorMessage img {
+                width: 1.3rem;
+            }
+
+            .beerRecommender_errorMessage p {
+                font-size: 1.2rem;
+                font-weight: 900;
+                color: lightcoral;
+            }
 
 </style>
