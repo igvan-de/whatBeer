@@ -67,6 +67,13 @@
         </div>
     </section>
 
+    <button 
+        class="beerRecommender_searchBar-searchBtn"
+        @click="getRandomBeers">
+        <img src="../assets/images/search.png">
+    </button>
+
+
 </template>
 <script>
 export default({
@@ -83,6 +90,9 @@ export default({
         this.loading = false;
         this.searchTerm = "";
         this.$store.dispatch('deleteRecommendations');
+    },
+    getRandomBeers: function() {
+        this.$store.dispatch('fetchRandomBeers');
     }
   },
   computed: {

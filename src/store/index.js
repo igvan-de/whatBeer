@@ -14,13 +14,15 @@ state: {
     listedBeers: [],
     recommendedBeers: [],
     selectedBeer: null,
-    error: ''
+    randomBeers: [],
+    error: '',
     // beerSuggestions: []
 },
 getters: {
     listedBeers:        state => state.listedBeers,
     recommendedBeers:   state => state.recommendedBeers,
     selectedBeer:       state => state.selectedBeer,
+    randomBeers:        state => state.randomBeers,
     error:              state => state.error
 },
 mutations: {
@@ -38,6 +40,13 @@ mutations: {
             state.recommendedBeers = [];
             console.log('after delete', state.recommendedBeers);
         }
+    },
+    FETCHRANDOMBEERS(state, payload) {
+        if (state.randomBeers.length > 2) {
+            state.randomBeers = [];    
+        }
+        state.randomBeers.push(payload);
+        console.log('randomBeers', state.randomBeers);
     },
     FETCHBEERDETAILS(state, payload){},
     CLOSEDETAILS(state, payload){}
@@ -59,6 +68,15 @@ actions: {
     },
     deleteRecommendations({commit}) {
         commit('DELETERECOMMENDATIONS');
+    },
+    fetchRandomBeers({commit}) {
+        for (let i = 0; i < 3; i++) {
+            axios
+            .get(`https://api.punkapi.com/v2/beers/random`)
+            .then(result =>{
+                commit('FETCHRANDOMBEERS', result.data)
+            });
+        }
     },
     fetchBeedDetails({commit}, payload) {
 
