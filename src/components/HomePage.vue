@@ -21,10 +21,20 @@
     </section>
 
     <section>
+        <div class="imgWrapper">
+            <div class="imgWrapper_header">
+                <h2>Find out <span class="imgWrapper_header-bold">what<span class="beerFoam">B</span>eer</span> suits your dish or ingredient</h2>
+            </div>
+            <img src="../assets/images/food_img.jpeg">
+        </div>
+    </section>
+
+
+    <section>
         <div class="beerRecommender">
           
             <div class="beerRecommender_header">
-                <h2>Find out <span class="beerRecommender_header-bold">what<span class="beerFoam">B</span>eer</span> suits your dish or ingredient</h2>
+                <h2>Search here for the perfect beer..</h2>
             </div>
 
             <div class="beerRecommender_searchBar">
@@ -67,11 +77,11 @@
         </div>
     </section>
 
-    <button 
+    <!-- <button 
         class="beerRecommender_searchBar-searchBtn"
         @click="getRandomBeers">
         <img src="../assets/images/search.png">
-    </button>
+    </button> -->
 
 
 </template>
@@ -152,17 +162,19 @@ export default({
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 15rem;
+        margin-top: 5rem;
+        margin-bottom: 5rem;
         gap: 1.3rem;
     }
 
         .beerRecommender_header {
             display: flex;
             flex-direction: row;
+            font-size: 1rem;
         }
 
         .beerRecommender_header-bold {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
         }
 
@@ -220,4 +232,36 @@ export default({
                 color: lightcoral;
             }
 
+    .imgWrapper {
+        display: flex;
+        position: relative;
+        height: 50rem;
+        width: auto;
+        margin-top: 20rem;
+        z-index: 1;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .imgWrapper img {
+            height: 45rem;
+            width: 100%;
+        }
+
+        .imgWrapper_header {
+            display: flex;
+            color: white;
+            position: absolute;
+            flex-direction: row;
+            font-size: 6rem;
+            font-weight: bold;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .imgWrapper_header-bold {
+            font-size: 12rem;
+            font-weight: bold;
+        }
+    
 </style>
