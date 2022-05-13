@@ -41,10 +41,11 @@ mutations: {
             console.log('after delete', state.recommendedBeers);
         }
     },
-    FETCHRANDOMBEERS(state, payload) {
+    FETCHRANDOMBEERS(state, payload, i) {
         if (state.randomBeers.length > 2) {
             state.randomBeers = [];    
         }
+        console.log(i);
         state.randomBeers.push(payload);
         console.log('randomBeers', state.randomBeers);
     },

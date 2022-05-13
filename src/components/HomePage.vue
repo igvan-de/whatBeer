@@ -2,37 +2,33 @@
 
     <section>
         <div class="wrapper">
-
             <div class="welcome">
                 <h2>Welcome by </h2><h1>what<span class="beerFoam">B</span>eer</h1>
             </div>
-
             <hr />
-
             <div class="slogan">
                 <p>The only helper to find the perfect beer <span class="bold">you</span> need!</p>
             </div>
-
         </div>
     </section>
 
     <section>
-        <!-- call items to display about this page -->
+        <div class="randomBeers">
+            <RandomBeers />
+        </div>
     </section>
 
     <section>
         <div class="imgWrapper">
             <div class="imgWrapper_header">
-                <h2>Find out <span class="imgWrapper_header-bold">what<span class="beerFoam">B</span>eer</span> suits your dish or ingredient</h2>
+                <h2>Find out <span class="imgWrapper_header-bold text-focus-in">what<span class="beerFoam">B</span>eer</span> suits your dish or ingredient</h2>
             </div>
             <img src="../assets/images/food_img.jpeg">
         </div>
     </section>
 
-
     <section>
         <div class="beerRecommender">
-          
             <div class="beerRecommender_header">
                 <h2>Search here for the perfect beer..</h2>
             </div>
@@ -73,7 +69,6 @@
                 :key="beer.id">
                 {{beer.name}}
             </div>
-
         </div>
     </section>
 
@@ -86,6 +81,8 @@
 
 </template>
 <script>
+import RandomBeers from "./RandomBeers.vue"
+
 export default({
   data: () => ({
       searchTerm: "",
@@ -109,6 +106,9 @@ export default({
     recommendedBeers() {
         return this.$store.getters.recommendedBeers;
     }
+  },
+  components: {
+      RandomBeers
   }
 });
 </script>
@@ -118,7 +118,7 @@ export default({
     .wrapper {
         display: flex;
         flex-direction: column;
-        top: 5rem;
+        top: 2rem;
         margin: 4rem;
         align-items: center;
     }
@@ -158,11 +158,18 @@ export default({
                 font-weight: 600;
             }
 
+    .randomBeers {
+        display: flex;
+        margin-top: 17rem;
+        justify-content: space-around;
+    }
+
+
     .beerRecommender {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 5rem;
+        margin-top: 3rem;
         margin-bottom: 5rem;
         gap: 1.3rem;
     }
@@ -237,7 +244,7 @@ export default({
         position: relative;
         height: 50rem;
         width: auto;
-        margin-top: 20rem;
+        margin-top: 10rem;
         z-index: 1;
         align-items: center;
         justify-content: center;
@@ -263,5 +270,5 @@ export default({
             font-size: 12rem;
             font-weight: bold;
         }
-    
+
 </style>
