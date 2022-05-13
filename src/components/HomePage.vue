@@ -160,10 +160,43 @@ export default({
 
     .randomBeers {
         display: flex;
-        margin-top: 17rem;
+        margin-top: 6rem;
         justify-content: space-around;
+        padding: 10rem;
+        gap: 2rem;
     }
 
+
+    .imgWrapper {
+        display: flex;
+        position: relative;
+        height: 50rem;
+        width: auto;
+        z-index: 1;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .imgWrapper img {
+            height: 45rem;
+            width: 100%;
+        }
+
+        .imgWrapper_header {
+            display: flex;
+            color: white;
+            position: absolute;
+            flex-direction: row;
+            font-size: 6rem;
+            font-weight: bold;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .imgWrapper_header-bold {
+            font-size: 12rem;
+            font-weight: bold;
+        }
 
     .beerRecommender {
         display: flex;
@@ -238,37 +271,4 @@ export default({
                 font-weight: 900;
                 color: lightcoral;
             }
-
-    .imgWrapper {
-        display: flex;
-        position: relative;
-        height: 50rem;
-        width: auto;
-        margin-top: 10rem;
-        z-index: 1;
-        align-items: center;
-        justify-content: center;
-    }
-
-        .imgWrapper img {
-            height: 45rem;
-            width: 100%;
-        }
-
-        .imgWrapper_header {
-            display: flex;
-            color: white;
-            position: absolute;
-            flex-direction: row;
-            font-size: 6rem;
-            font-weight: bold;
-            text-align: center;
-            z-index: 2;
-        }
-
-        .imgWrapper_header-bold {
-            font-size: 12rem;
-            font-weight: bold;
-        }
-
 </style>
