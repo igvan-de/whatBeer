@@ -21,7 +21,15 @@
     <section>
         <div class="imgWrapper">
             <div class="imgWrapper_header">
-                <h2>Find out <span class="imgWrapper_header-bold text-focus-in">what<span class="beerFoam">B</span>eer</span> suits your dish or ingredient</h2>
+                <h2>Find out <span 
+                            class="imgWrapper_header-bold"
+                                data-aos="fade-up"
+                                data-aos-offset="200"
+                                data-aos-delay="50"
+                                data-aos-duration="1000"
+                                data-aos-easing="ease-in-out"
+                                data-aos-once="true">what
+                            <span class="beerFoam">B</span>eer</span> suits your dish or ingredient</h2>
             </div>
             <img src="../assets/images/food_img.jpeg">
         </div>
