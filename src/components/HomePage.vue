@@ -28,14 +28,12 @@
                                 data-aos-delay="50"
                                 data-aos-duration="1000"
                                 data-aos-easing="ease-in-out"
-                                data-aos-once="true">what
+                                data-aos-once="false">what
                             <span class="beerFoam">B</span>eer</span> suits your dish or ingredient</h2>
             </div>
             <img src="../assets/images/food_img.jpeg">
         </div>
-    </section>
 
-    <section>
         <div class="beerRecommender">
             <div class="beerRecommender_header">
                 <h2>Search here for the perfect beer..</h2>
