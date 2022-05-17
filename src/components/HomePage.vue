@@ -19,71 +19,88 @@
     </section>
 
     <section>
-        <div class="imgWrapper">
-            <div class="imgWrapper_header">
-                <h2>Find out <span 
-                            class="imgWrapper_header-bold"
-                                data-aos="fade-up"
-                                data-aos-offset="200"
-                                data-aos-delay="50"
-                                data-aos-duration="1000"
-                                data-aos-easing="ease-in-out"
-                                data-aos-once="false">what
-                            <span class="beerFoam">B</span>eer</span> suits your dish or ingredient</h2>
-            </div>
-            <img src="../assets/images/food_img.jpeg">
-        </div>
-
-        <div class="beerRecommender">
-            <div class="beerRecommender_header">
-                <h2>Search here for the perfect beer..</h2>
+        <div class="beerRecommender_wrapper">
+            <div class="beerRecommender_imgWrapper">
+                <div class="imgWrapper_header">
+                    <h2>Find out <span 
+                                class="imgWrapper_header-bold"
+                                    data-aos="fade-up"
+                                    data-aos-offset="200"
+                                    data-aos-delay="50"
+                                    data-aos-duration="1000"
+                                    data-aos-easing="ease-in-out"
+                                    data-aos-once="false">what
+                                <span class="beerFoam">B</span>eer</span> suits your dish or ingredient</h2>
+                </div>
+                <div class="imgWrapper">
+                    <img src="../assets/images/food_img.jpeg">
+                </div>
             </div>
 
-            <div class="beerRecommender_searchBar">
-                <input 
-                    type="text"
-                    placeholder="Type in ingredient or dish..."
-                    class="beerRecommender_searchBar-search"
-                    v-model="searchTerm"
-                    @keypress.enter="getRecommendedBeers">
-                
-                <button 
-                    class="beerRecommender_searchBar-searchBtn"
-                    v-if="searchTerm != ''"
-                    @click="getRecommendedBeers">
-                    <img src="../assets/images/search.png">
-                </button>
-                
-                <button 
-                    class="beerRecommender_searchBar-cancelBtn"
-                    v-if="recommendedBeers.length > 0"
-                    @click="deleteRecommendedBeers">
-                    <img src="../assets/images/unchecked.png">
-                </button>
-            </div>
+            <div class="beerRecommender">
+                <div class="beerRecommender_header">
+                    <h2>Search here for the perfect beer..</h2>
+                </div>
 
-            <div 
-            class="beerRecommender_errorMessage"
-            v-if="recommendedBeers.length === 0 && loading === true">
-                <img src="../assets/images/error.png">
-                <p>Fill in correct search term</p>
-            </div>
+                <div class="beerRecommender_searchBar">
+                    <input 
+                        type="text"
+                        placeholder="Type in ingredient or dish..."
+                        class="beerRecommender_searchBar-search"
+                        v-model="searchTerm"
+                        @keypress.enter="getRecommendedBeers">
+                    
+                    <button 
+                        class="beerRecommender_searchBar-searchBtn"
+                        v-if="searchTerm != ''"
+                        @click="getRecommendedBeers">
+                        <img src="../assets/images/search.png">
+                    </button>
+                    
+                    <button 
+                        class="beerRecommender_searchBar-cancelBtn"
+                        v-if="recommendedBeers.length > 0"
+                        @click="deleteRecommendedBeers">
+                        <img src="../assets/images/unchecked.png">
+                    </button>
+                </div>
 
-            <div
-                class="beerRecommender_recommendedBeer"
-                v-for="beer of recommendedBeers"
-                :key="beer.id">
-                {{beer.name}}
+                <div 
+                class="beerRecommender_errorMessage"
+                v-if="recommendedBeers.length === 0 && loading === true">
+                    <img src="../assets/images/error.png">
+                    <p>Fill in correct search term</p>
+                </div>
+
+                <div
+                    class="beerRecommender_recommendedBeer"
+                            data-aos="fade-right"
+                            data-aos-offset="200"
+                            data-aos-delay="50"
+                            data-aos-duration="1000"
+                            data-aos-easing="ease-in-out"
+                            data-aos-once="false"
+                    v-for="beer of recommendedBeers"
+                    :key="beer.id">
+                    <img v-if="beer.image_url != null" :src="beer.image_url" class="beerRecommender_recommendedBeer_img-url">
+                    <img v-else src="../assets/images/beer.png" class="beerRecommender_recommendedBeer_img-beer">
+                    <div class="beerRecommender_recommendedBeer-description">
+                        <div class="beerRecommender_recommendedBeer-description-header">                    
+                            <h3>{{beer.name}}</h3>
+                            <p>Alc.% {{beer.abv}}</p>
+                        </div>
+                        <p v-if="beer.tagline">{{beer.tagline}}</p>
+                        <!-- TODO: create function to select food_pairing with seachItem in it -->
+                        <p>Great with: {{beer.food_pairing[0]}}</p>
+                    </div>
+                    <RouterLink to="/whatbeer-details" class="beerRecommender_recommendedBeer-description-learnMore">
+                        <p>Learn more</p>
+                        <img src="../assets/images/right-arrow-roundImg.png">
+                    </RouterLink>
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- <button 
-        class="beerRecommender_searchBar-searchBtn"
-        @click="getRandomBeers">
-        <img src="../assets/images/search.png">
-    </button> -->
-
 
 </template>
 <script>
@@ -172,109 +189,215 @@ export default({
         gap: 2rem;
     }
 
-
-    .imgWrapper {
-        display: flex;
-        position: relative;
-        height: 50rem;
-        width: auto;
-        z-index: 1;
-        align-items: center;
-        justify-content: center;
-    }
-
-        .imgWrapper img {
-            height: 45rem;
-            width: 100%;
-        }
-
-        .imgWrapper_header {
-            display: flex;
-            color: white;
-            position: absolute;
-            flex-direction: row;
-            font-size: 6rem;
-            font-weight: bold;
-            text-align: center;
-            z-index: 2;
-        }
-
-        .imgWrapper_header-bold {
-            font-size: 12rem;
-            font-weight: bold;
-        }
-
-    .beerRecommender {
+    .beerRecommender_wrapper {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        margin-top: 3rem;
-        margin-bottom: 5rem;
-        gap: 1.3rem;
+        justify-content: center;
+        padding: 5rem;
+        margin: 0 5rem 5rem 5rem;
+        border: 1px solid var(--vt-c-white-mute);
+        border-radius: 2rem;
+        background-color: rgba(0, 0, 0, 0.016);
     }
 
-        .beerRecommender_header {
+        .beerRecommender_imgWrapper {
             display: flex;
             flex-direction: row;
-            font-size: 1rem;
-        }
-
-        .beerRecommender_header-bold {
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-
-        .beerRecommender_searchBar {
-            display: flex;
             align-items: center;
+            gap: 1rem;
         }
 
-            .beerRecommender_searchBar-search {
+            .imgWrapper {
                 display: flex;
-                width: 40rem;
-                border: 1px solid var(--vt-c-black-mute);
-                border-radius: 5px;
-                padding: 10px;
-                justify-items: center;
+                height: 50%;
+                width: 80%;
+                z-index: 1;
+                align-items: center;
+                justify-content: center;
             }
 
-            .beerRecommender_searchBar-searchBtn {
-                width: 1.6rem;
-                height: 1.6rem;
-                border: none;
-                background: none;
-                margin-right: 0.3rem;
-            }
-
-                .beerRecommender_searchBar-searchBtn img {
-                    width: 1.6rem;
-                    height: 1.6rem;
+                .imgWrapper img {
+                    display: flex;
+                    height: 50%;
+                    width: 100%;
+                    border-radius: 10% 0;
                 }
 
-            .beerRecommender_searchBar-cancelBtn {
-                width: 1.6rem;
-                height: 1.6rem;
-                border: none;
-                background: none;
-            }
-
-                .beerRecommender_searchBar-cancelBtn img {
-                    width: 1.6rem;
-                    height: 1.6rem;
+                .imgWrapper_header {
+                    display: flex;
+                    color: black;
+                    flex-direction: row;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    text-align: center;
+                    z-index: 2;
                 }
 
-        .beerRecommender_errorMessage {
+                .imgWrapper_header-bold {
+                    font-size: 4rem;
+                    font-weight: bold;
+                    word-spacing: -1.2rem;
+                }
+
+        .beerRecommender {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 0.2rem;
+            margin-top: 6rem;
+            gap: 1.3rem;
         }
-            .beerRecommender_errorMessage img {
-                width: 1.3rem;
+
+            .beerRecommender_header {
+                display: flex;
+                flex-direction: row;
+                font-size: 1rem;
             }
 
-            .beerRecommender_errorMessage p {
-                font-size: 1.2rem;
-                font-weight: 900;
-                color: lightcoral;
+            .beerRecommender_header-bold {
+                font-size: 2.5rem;
+                font-weight: bold;
             }
+
+            .beerRecommender_searchBar {
+                display: flex;
+                align-items: center;
+                min-width: 70%;
+                margin-bottom: 2rem;
+            }
+
+                .beerRecommender_searchBar-search {
+                    display: flex;
+                    width: 100%;
+                    border: 1px solid var(--vt-c-black-mute);
+                    border-radius: 5px;
+                    padding: 10px;
+                    justify-items: center;
+                }
+
+                .beerRecommender_searchBar-searchBtn {
+                    width: 1.6rem;
+                    height: 1.6rem;
+                    border: none;
+                    background: none;
+                    margin-right: 0.3rem;
+                }
+
+                    .beerRecommender_searchBar-searchBtn img {
+                        width: 1.6rem;
+                        height: 1.6rem;
+                    }
+
+                .beerRecommender_searchBar-cancelBtn {
+                    width: 1.6rem;
+                    height: 1.6rem;
+                    border: none;
+                    background: none;
+                }
+
+                    .beerRecommender_searchBar-cancelBtn img {
+                        width: 1.6rem;
+                        height: 1.6rem;
+                    }
+
+            .beerRecommender_errorMessage {
+                display: flex;
+                align-items: center;
+                gap: 0.2rem;
+            }
+                .beerRecommender_errorMessage img {
+                    width: 1.3rem;
+                }
+
+                .beerRecommender_errorMessage p {
+                    font-size: 1.2rem;
+                    font-weight: 900;
+                    color: lightcoral;
+                }
+
+            .beerRecommender_recommendedBeer {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                border-left: 3px solid orange;
+                padding: 1rem;
+                min-width: 100%;
+                gap: 4rem;
+            }
+
+                .beerRecommender_recommendedBeer_img-url {
+                    height: 10rem;
+                    width: 3rem;
+                    margin-left: 3rem;
+                }
+
+                .beerRecommender_recommendedBeer_img-beer {
+                    height: 5rem;
+                    width: 5rem;
+                    margin-left: 2rem;
+                }
+
+                .beerRecommender_recommendedBeer-description {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    width: 100%;
+                }
+
+                    .beerRecommender_recommendedBeer-description-header {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: flex-end;
+                        gap: 0.5rem;
+                    }
+
+                    .beerRecommender_recommendedBeer-description-header h3 {
+                        font-family: Asap;
+                        font-size: 1.3rem;
+                        font-weight: 900;
+                    }
+                        
+                    .beerRecommender_recommendedBeer-description-header p {
+                        font-size: 0.8rem;
+                        font-style: italic;
+                    }
+
+                .beerRecommender_recommendedBeer-description-learnMore {
+                    display: flex;
+                    width: 30%;
+                    justify-content: flex-end;
+                    align-items: center;
+                    gap: 0.5rem;
+                    text-decoration: none;
+                    color: black;
+                    margin-right: 1rem;
+                }
+
+                    .beerRecommender_recommendedBeer-description-learnMore img {
+                        width: 2rem;
+                        height: 2rem;
+                    }
+
+            .beerRecommender_recommendedBeer:hover {
+                animation: orange-selector-fade-in-right;
+                animation-duration: 1s;
+                color: white;
+                background-color: orange;
+                border-radius: 2rem;
+            }
+
+            .beerRecommender_recommendedBeer-description-learnMore:hover {
+                transform: scale(110%);
+                font-weight: 900;
+            }
+
+            @keyframes orange-selector-fade-in-right {
+                from {
+                    transform: translateX(50px);
+                }
+
+                to {
+                    transform: translateX(0px);
+                }
+            }
+
 </style>

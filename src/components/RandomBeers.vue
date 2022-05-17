@@ -109,6 +109,7 @@ export default({
                 .randomBeer_details-btn:hover {
                     color: orange;
                     background-color: var(--vt-c-white-mute);
+                    cursor: pointer;
                 }
 
 </style>
