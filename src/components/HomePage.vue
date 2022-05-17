@@ -91,7 +91,7 @@
                         </div>
                         <p v-if="beer.tagline">{{beer.tagline}}</p>
                         <!-- TODO: create function to select food_pairing with seachItem in it -->
-                        <p>Great with: {{beer.food_pairing[0]}}</p>
+                        <p v-html="checkSearchTerm(beer)"></p>
                     </div>
                     <RouterLink to="/whatbeer-details" class="beerRecommender_recommendedBeer-description-learnMore">
                         <p>Learn more</p>
@@ -123,6 +123,35 @@ export default({
     },
     getRandomBeers: function() {
         this.$store.dispatch('fetchRandomBeers');
+    },
+    checkSearchTerm: function() {
+        // beer.food_pairing.map(food => {
+        //     let lowerCaseFood =  food.toLowerCase();
+        //     if (lowerCaseFood.includes(this.searchTerm.toLowerCase())) {
+        //         console.log(lowerCaseFood);
+        //         return lowerCaseFood;
+        //     }
+        // })
+        console.log(this.recommendedBeers);
+        this.recommendedBeers.map(beer => {
+            console.log(beer);
+            for (let j = 0; j < beer.food_pairing.length; j++) {
+                let lowerCaseFood =  beer.food_pairing[j].toLowerCase();
+                if (lowerCaseFood.includes(this.searchTerm.toLowerCase())) {
+                    console.log(lowerCaseFood);
+                    return lowerCaseFood;
+                }
+            }
+        });
+
+        // if (this.searchTerm.length >= 3) {
+        //     for (let i = 0; i < beer.food_pairing.length; i++) {
+        //         let lowerCaseFood =  beer.food_pairing[i].toLowerCase();
+        //         if (lowerCaseFood.includes(this.searchTerm.toLowerCase())) {
+        //             return lowerCaseFood;
+        //         }
+        //     }
+        // }
     }
   },
   computed: {
@@ -318,7 +347,7 @@ export default({
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                border-left: 3px solid orange;
+                border-left: 3px solid rgba(255, 166, 0, 0.63);
                 padding: 1rem;
                 min-width: 100%;
                 gap: 4rem;
@@ -380,8 +409,7 @@ export default({
             .beerRecommender_recommendedBeer:hover {
                 animation: orange-selector-fade-in-right;
                 animation-duration: 1s;
-                color: white;
-                background-color: orange;
+                background-color: rgba(255, 166, 0, 0.63);
                 border-radius: 2rem;
             }
 
