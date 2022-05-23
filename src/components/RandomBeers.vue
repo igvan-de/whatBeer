@@ -15,7 +15,7 @@
                 <hr />
                 <p class="randomBeer_details-brewersTip">{{ beer.brewers_tips }}</p>
                 <p class="randomBeer_details-alc">Alc% {{ beer.abv }}</p>
-                <RouterLink to="/whatbeer-details">
+                <RouterLink to="/beer-details">
                     <button class="randomBeer_details-btn">Learn more</button>
                 </RouterLink>
             </div>

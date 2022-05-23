@@ -7,13 +7,13 @@ export default createStore ({
      * This webApp makes use of an store for easy acces to all required details.
      * listedBeers: to get all beers from PunkApi
      * recommendedBeers: all beers that are good with with a certain beer
-     * selectedBeer: the beer a user wants to get more details of
+     * detailedBeer: the beer a user wants to get more details of
      * error: error message when beer is not found
      */
 state: {
     listedBeers: [],
     recommendedBeers: [],
-    selectedBeer: null,
+    detailedBeer: null,
     randomBeers: [],
     error: '',
     // beerSuggestions: []
@@ -21,7 +21,7 @@ state: {
 getters: {
     listedBeers:        state => state.listedBeers,
     recommendedBeers:   state => state.recommendedBeers,
-    selectedBeer:       state => state.selectedBeer,
+    detailedBeer:       state => state.detailedBeer,
     randomBeers:        state => state.randomBeers,
     error:              state => state.error
 },
@@ -49,7 +49,10 @@ mutations: {
         state.randomBeers.push(payload);
         console.log('randomBeers', state.randomBeers);
     },
-    FETCHBEERDETAILS(state, payload){},
+    FETCHBEERDETAILS(state, payload) {
+        state.detailedBeer = payload[0];
+        console.log('detailed beer', state.detailedBeer);
+    },
     CLOSEDETAILS(state, payload){}
 },
 actions: {
@@ -79,8 +82,12 @@ actions: {
             });
         }
     },
-    fetchBeedDetails({commit}, payload) {
-
+    fetchBeerDetails({commit}, payload) {
+        axios
+        .get(`https://api.punkapi.com/v2/beers/${payload}`)
+        .then(result =>{
+            commit('FETCHBEERDETAILS', result.data)
+        });
     },
 
 }

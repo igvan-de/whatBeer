@@ -90,10 +90,12 @@
                             <p>Alc.% {{beer.abv}}</p>
                         </div>
                         <p v-if="beer.tagline">{{beer.tagline}}</p>
-                        <!-- TODO: create function to select food_pairing with seachItem in it -->
-                        <p v-html="checkSearchTerm(beer)"></p>
+                        <p v-html="getRecommendedFood(beer)"></p>
                     </div>
-                    <RouterLink to="/whatbeer-details" class="beerRecommender_recommendedBeer-description-learnMore">
+                    <RouterLink 
+                        to="/beer-details" 
+                        class="beerRecommender_recommendedBeer-description-learnMore"
+                        @click="getDetailsBeer(beer.id)">
                         <p>Learn more</p>
                         <img src="../assets/images/right-arrow-roundImg.png">
                     </RouterLink>
@@ -124,39 +126,23 @@ export default({
     getRandomBeers: function() {
         this.$store.dispatch('fetchRandomBeers');
     },
-    checkSearchTerm: function() {
-        // beer.food_pairing.map(food => {
-        //     let lowerCaseFood =  food.toLowerCase();
-        //     if (lowerCaseFood.includes(this.searchTerm.toLowerCase())) {
-        //         console.log(lowerCaseFood);
-        //         return lowerCaseFood;
-        //     }
-        // })
-        console.log(this.recommendedBeers);
-        this.recommendedBeers.map(beer => {
-            console.log(beer);
-            for (let j = 0; j < beer.food_pairing.length; j++) {
-                let lowerCaseFood =  beer.food_pairing[j].toLowerCase();
-                if (lowerCaseFood.includes(this.searchTerm.toLowerCase())) {
-                    console.log(lowerCaseFood);
-                    return lowerCaseFood;
-                }
+    getRecommendedFood: function(beer) {
+        const ingredient = this.searchTerm.toLowerCase();
+        for (let j = 0; j < beer.food_pairing.length; j++) {
+            const lowerCaseFood =  beer.food_pairing[j].toLowerCase();
+            if (lowerCaseFood.includes(ingredient)) {
+                return lowerCaseFood;
             }
-        });
-
-        // if (this.searchTerm.length >= 3) {
-        //     for (let i = 0; i < beer.food_pairing.length; i++) {
-        //         let lowerCaseFood =  beer.food_pairing[i].toLowerCase();
-        //         if (lowerCaseFood.includes(this.searchTerm.toLowerCase())) {
-        //             return lowerCaseFood;
-        //         }
-        //     }
-        // }
+        }
+    },
+    getDetailsBeer(id) {
+        this.$store.dispatch('fetchBeerDetails', id);
     }
   },
   computed: {
     recommendedBeers() {
-        return this.$store.getters.recommendedBeers;
+        return this.$store.getters.recommendedBeers
+      ;
     }
   },
   components: {
@@ -223,9 +209,7 @@ export default({
         flex-direction: column;
         justify-content: center;
         padding: 5rem;
-        margin: 0 5rem 5rem 5rem;
         border: 1px solid var(--vt-c-white-mute);
-        border-radius: 2rem;
         background-color: rgba(0, 0, 0, 0.016);
     }
 
