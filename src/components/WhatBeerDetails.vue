@@ -46,7 +46,14 @@
                         <div class="detailedBeer_wrapper-item-img">
                             <img src="../assets/images/hop.png">
                         </div>
-                        <div class="detailedBeer_wrapper-item-content">
+                        <div 
+                        v-for="hop of beer.ingredients.hops"
+                        :key="hop"
+                        class="detailedBeer_wrapper-item-content">
+                            <ul>Name: {{hop.name}}</ul>
+                            <ul>Attribute: {{hop.attribute}}</ul>
+                            <ul>When to add: {{hop.add}}</ul>
+                            <ul>Amount: {{hop.amount.value}} {{hop.amount.unit}}</ul>
                         </div>
                     </div>
                     <hr>
@@ -54,7 +61,12 @@
                         <div class="detailedBeer_wrapper-item-img">
                             <img src="../assets/images/malt.png">
                         </div>
-                        <div class="detailedBeer_wrapper-item-content">
+                        <div 
+                        v-for="malt of beer.ingredients.malt"
+                        :key="malt"
+                        class="detailedBeer_wrapper-item-content">
+                            <ul>Name: {{malt.name}}</ul>
+                            <ul>Amount: {{malt.amount.value}} {{malt.amount.unit}}</ul>
                         </div>
                     </div>
                     <hr>
@@ -63,6 +75,7 @@
                             <img src="../assets/images/wheat.png">
                         </div>
                         <div class="detailedBeer_wrapper-item-content">
+                            <p>Name: {{beer.ingredients.yeast}}</p>
                         </div>
                     </div>
                 </div>
@@ -71,6 +84,10 @@
                         <img src="../assets/images/barrel.png">
                     </div>
                     <div class="detailedBeer_wrapper-item-content">
+                        <ul>ABV: {{beer.abv}}</ul>
+                        <ul>Attenuation level: {{beer.attenuation_level}}</ul>
+                        <ul>PH: {{beer.ph}}</ul>
+                        <ul>SRM: {{beer.srm}}</ul>
                     </div>
                 </div>
             </div>
