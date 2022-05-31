@@ -15,7 +15,9 @@
                 <hr />
                 <p class="randomBeer_details-brewersTip">{{ beer.brewers_tips }}</p>
                 <p class="randomBeer_details-alc">Alc% {{ beer.abv }}</p>
-                <RouterLink to="/beer-details">
+                <RouterLink 
+                    to="/beer-details"
+                    @click="getDetailsBeer(beer.id)">
                     <button class="randomBeer_details-btn">Learn more</button>
                 </RouterLink>
             </div>
@@ -26,12 +28,15 @@
 <script>
 export default({
   data: () => ({
-    return: {}
   }),
-  methods: () => {},
+  methods: {
+    getDetailsBeer(id) {
+        console.log('id', id);
+        this.$store.dispatch('fetchBeerDetails', id);
+    }
+  },
   computed: {
     randomBeers() {
-        console.log(this.$store.getters.randomBeers)
         return this.$store.getters.randomBeers;
     }
   },
