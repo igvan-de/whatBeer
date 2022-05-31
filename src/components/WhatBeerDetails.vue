@@ -1,17 +1,22 @@
 <template>
     <div v-if="beer" class="detailedBeer">
-        <h3>{{beer.name}}</h3>
-        <p>{{beer.tagline}}</p>
         <div class="detailedBeer_wrapper">
             <div class="detailedBeer_wrapper_left">
+                <div class="detailedBeer-header">
+                    <h2>{{beer.name}}</h2>
+                    <p>{{beer.tagline}}</p>
+                </div>
                 <div class="detailedBeer_wrapper_left-beer">
-                    <div class="detailedBeer_wrapper-item-img">
+                    <div class="detailedBeer_wrapper-item-img-beer">
                         <img :src="beer.image_url">
                     </div>
                     <div class="detailedBeer_wrapper-item-content">
-                        <p>{{beer.description}}</p>
-                        <p>{{beer.brewers_tips}}</p>
-                        <p>{{beer.first_brewed}}</p>
+                        <h2>Food pairing</h2>
+                        <p>Description: {{beer.description}}</p>
+                        <hr>
+                        <p>Some tips of the brewers themselves: {{beer.brewers_tips}}</p>
+                        <hr>
+                        <p>First brewed in: {{beer.first_brewed}}</p>
                     </div>
                 </div>
                 <div class="detailedBeer_wrapper_left-method">
@@ -46,14 +51,17 @@
                         <div class="detailedBeer_wrapper-item-img">
                             <img src="../assets/images/hop.png">
                         </div>
-                        <div 
-                        v-for="hop of beer.ingredients.hops"
-                        :key="hop"
-                        class="detailedBeer_wrapper-item-content">
-                            <ul>Name: {{hop.name}}</ul>
-                            <ul>Attribute: {{hop.attribute}}</ul>
-                            <ul>When to add: {{hop.add}}</ul>
-                            <ul>Amount: {{hop.amount.value}} {{hop.amount.unit}}</ul>
+                        <div class="detailedBeer_wrapper-item-contentRows">
+                            <div 
+                            v-for="hop of beer.ingredients.hops"
+                            :key="hop"
+                            class="detailedBeer_wrapper-item-content">
+                                <ul>Name: {{hop.name}}</ul>
+                                <ul>Attribute: {{hop.attribute}}</ul>
+                                <ul>When to add: {{hop.add}}</ul>
+                                <ul>Amount: {{hop.amount.value}} {{hop.amount.unit}}</ul>
+                                <hr>
+                            </div>
                         </div>
                     </div>
                     <hr>
@@ -61,12 +69,14 @@
                         <div class="detailedBeer_wrapper-item-img">
                             <img src="../assets/images/malt.png">
                         </div>
-                        <div 
-                        v-for="malt of beer.ingredients.malt"
-                        :key="malt"
-                        class="detailedBeer_wrapper-item-content">
-                            <ul>Name: {{malt.name}}</ul>
-                            <ul>Amount: {{malt.amount.value}} {{malt.amount.unit}}</ul>
+                        <div class="detailedBeer_wrapper-item-contentRows">
+                            <div 
+                            v-for="malt of beer.ingredients.malt"
+                            :key="malt"
+                            class="detailedBeer_wrapper-item-content">
+                                <ul>Name: {{malt.name}}</ul>
+                                <ul>Amount: {{malt.amount.value}} {{malt.amount.unit}}</ul>
+                            </div>
                         </div>
                     </div>
                     <hr>
@@ -115,27 +125,127 @@ export default({
     .detailedBeer {
         display: flex;
         flex-direction: column;
-        align-items: center;
         padding: 5rem;
     }
 
         .detailedBeer_wrapper {
             display: flex;
-            flex-direction: row;
             justify-items: center;
             align-items: center;
             gap: 2rem;
-            width: 100%;
         }
 
             .detailedBeer-wrapper_left {
                 flex-direction: column;
-                width: 50%;
+                max-width: 25rem;
             }
+
+                .detailedBeer-header {
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 3rem;
+                }
+
+                    .detailedBeer-header h2 {
+                        font-family: 'Koulen';
+                        font-size: 3rem;
+                    }
+
+                .detailedBeer_wrapper-item-img {
+                    display: flex;
+                    left: -3rem;
+                }
+
+                    .detailedBeer_wrapper-item-img img {
+                        width: 8rem;
+                        height: 8rem;
+                    }
+
+                .detailedBeer_wrapper-item-content {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .detailedBeer_wrapper_left-beer {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    background: var(--vt-c-white-mute);
+                    border-radius: 1rem;
+                    padding: 2rem;
+                    margin-bottom: 2rem;
+                    max-width: 30rem;
+                }
+
+                    .detailedBeer_wrapper-item-img-beer {
+                        display: flex;
+                        left: -3rem;
+                    }
+
+                        .detailedBeer_wrapper-item-img-beer img {
+                            width: 5rem;
+                            height: 18rem;
+                        }
+
+                .detailedBeer_wrapper_left-method {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    background: var(--vt-c-white-mute);
+                    border-radius: 1rem;
+                    padding: 2rem;
+                    margin-bottom: 2rem;
+                }
+
+
+                .detailedBeer_wrapper_left-foodPairing {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    background: var(--vt-c-white-mute);
+                    border-radius: 1rem;
+                    padding: 2rem;
+                    margin-bottom: 2rem;
+                }
 
             .detailedBeer-wrapper_right {
                 flex-direction: column;
-                width: 50%;
             }
+
+                .detailedBeer_wrapper_right-ingredientsColumn {
+                    background: var(--vt-c-white-mute);
+                    border-radius: 1rem;
+                    padding: 2rem;
+                    margin-bottom: 2rem;
+                    min-width: 30rem;
+                }
+
+                    .detailedBeer_wrapper_right-ingredientsRow {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                    }
+
+                        .detailedBeer_wrapper-item-contentRows {
+                            display: flex;
+                            flex-flow: column;
+                        }
+
+                            .detailedBeer_wrapper-item-content {
+                                display: flex;
+                                flex-direction: column;
+                            }
+
+                .detailedBeer_wrapper_right-extraInfo {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    background: var(--vt-c-white-mute);
+                    border-radius: 1rem;
+                    padding: 2rem;
+                    margin-bottom: 2rem;
+                    width: inherit;
+                }
+
 
 </style>
