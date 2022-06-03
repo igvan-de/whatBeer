@@ -8,15 +8,16 @@
                 </div>
                 <div class="detailedBeer_wrapper_left-beer">
                     <div class="detailedBeer_wrapper-item-img-beer">
-                        <img :src="beer.image_url">
+                        <img v-if="beer.image_url != null" :src="beer.image_url" class="real_img-beer">
+                        <img v-else src="../assets/images/beer.png" class="default_img-beer">
                     </div>
                     <div class="detailedBeer_wrapper-item-content">
                         <h2 class="content-header">Description</h2>
-                        <p>Description: {{beer.description}}</p>
+                        <p>{{beer.description}}</p>
                         <hr class="detailedBeer_wrapper-item-content-line">
-                        <p>Some tips of the brewers themselves: {{beer.brewers_tips}}</p>
+                        <p><span class="detailedBeer_wrapper-item-content-line-subject">Some tips of the brewers themselves:</span> {{beer.brewers_tips}}</p>
                         <hr class="detailedBeer_wrapper-item-content-line">
-                        <p>First brewed in: {{beer.first_brewed}}</p>
+                        <p><span class="detailedBeer_wrapper-item-content-line-subject">First brewed in:</span> {{beer.first_brewed}}</p>
                     </div>
                 </div>
                 <div class="detailedBeer_wrapper_left-method">
@@ -25,12 +26,12 @@
                     </div>
                     <div class="detailedBeer_wrapper-item-content">
                         <h2 class="content-header">Brew Method</h2>
-                        <p>Boil volume: {{beer.boil_volume.value}} {{beer.boil_volume.unit}}</p>
-                        <p>Fermentation: {{beer.method.fermentation.temp.value}} {{beer.method.fermentation.temp.unit}}</p>
+                        <p><span class="detailedBeer_wrapper-item-content-line-subject">Boil volume:</span> {{beer.boil_volume.value}} {{beer.boil_volume.unit}}</p>
+                        <p><span class="detailedBeer_wrapper-item-content-line-subject">Fermentation:</span> {{beer.method.fermentation.temp.value}} {{beer.method.fermentation.temp.unit}}</p>
                         <div v-for="mash of beer.method.mash_temp" :key="mash">
-                            <p>Mash temperature(s): {{mash.temp.value}} {{mash.temp.unit}}</p>
+                            <p><span class="detailedBeer_wrapper-item-content-line-subject">Mash temperature(s):</span> {{mash.temp.value}} {{mash.temp.unit}}</p>
                         </div>
-                        <p v-if="beer.method.twist">Twist: {{beer.method.twist}}</p>
+                        <p v-if="beer.method.twist"><span class="detailedBeer_wrapper-item-content-line-subject">Twist:</span> {{beer.method.twist}}</p>
                     </div>
                 </div>
                 <div class="detailedBeer_wrapper_left-foodPairing">
@@ -58,10 +59,10 @@
                             v-for="hop of beer.ingredients.hops"
                             :key="hop"
                             class="detailedBeer_wrapper-item-content">
-                                <ul>Name: {{hop.name}}</ul>
-                                <ul>Attribute: {{hop.attribute}}</ul>
-                                <ul>When to add: {{hop.add}}</ul>
-                                <ul>Amount: {{hop.amount.value}} {{hop.amount.unit}}</ul>
+                                <ul><span class="detailedBeer_wrapper-item-content-line-subject">Name:</span> {{hop.name}}</ul>
+                                <ul><span class="detailedBeer_wrapper-item-content-line-subject">Attribute:</span> {{hop.attribute}}</ul>
+                                <ul><span class="detailedBeer_wrapper-item-content-line-subject">When to add:</span> {{hop.add}}</ul>
+                                <ul><span class="detailedBeer_wrapper-item-content-line-subject">Amount:</span> {{hop.amount.value}} {{hop.amount.unit}}</ul>
                                 <hr class="detailedBeer_wrapper-item-content-line">
                                 <!-- display only first 3 and if there a re more, add see more option -->
                             </div>
@@ -77,8 +78,8 @@
                             v-for="malt of beer.ingredients.malt"
                             :key="malt"
                             class="detailedBeer_wrapper-item-content">
-                                <ul>Name: {{malt.name}}</ul>
-                                <ul>Amount: {{malt.amount.value}} {{malt.amount.unit}}</ul>
+                                <ul><span class="detailedBeer_wrapper-item-content-line-subject">Name:</span> {{malt.name}}</ul>
+                                <ul><span class="detailedBeer_wrapper-item-content-line-subject">Amount:</span> {{malt.amount.value}} {{malt.amount.unit}}</ul>
                                 <hr class="detailedBeer_wrapper-item-content-line">
                             </div>
                         </div>
@@ -89,7 +90,7 @@
                             <img src="../assets/images/wheat.png">
                         </div>
                         <div class="detailedBeer_wrapper-item-content">
-                            <p>Name: {{beer.ingredients.yeast}}</p>
+                            <p><span class="detailedBeer_wrapper-item-content-line-subject">Name:</span> {{beer.ingredients.yeast}}</p>
                         </div>
                     </div>
                 </div>
@@ -99,10 +100,10 @@
                     </div>
                     <div class="detailedBeer_wrapper-item-content">
                         <h2 class="content-header">Extra Information</h2>
-                        <ul>ABV: {{beer.abv}}</ul>
-                        <ul>Attenuation level: {{beer.attenuation_level}}</ul>
-                        <ul>PH: {{beer.ph}}</ul>
-                        <ul>SRM: {{beer.srm}}</ul>
+                        <ul><span class="detailedBeer_wrapper-item-content-line-subject">ABV:</span> {{beer.abv}}</ul>
+                        <ul><span class="detailedBeer_wrapper-item-content-line-subject">Attenuation level:</span> {{beer.attenuation_level}}</ul>
+                        <ul><span class="detailedBeer_wrapper-item-content-line-subject">PH:</span> {{beer.ph}}</ul>
+                        <ul><span class="detailedBeer_wrapper-item-content-line-subject">SRM:</span> {{beer.srm}}</ul>
                     </div>
                 </div>
             </div>
@@ -135,7 +136,7 @@ export default({
 
         .detailedBeer_wrapper {
             display: flex;
-            justify-items: center;
+            justify-content: center;
             align-items: center;
             gap: 2rem;
         }
@@ -147,7 +148,6 @@ export default({
 
             .detailedBeer-wrapper_left {
                 flex-direction: column;
-                max-width: 25rem;
             }
 
                 .detailedBeer-header {
@@ -155,6 +155,7 @@ export default({
                     flex-direction: column;
                     margin-bottom: 3rem;
                     line-height: 4rem;
+                    max-width: 40rem;
                 }
 
                     .detailedBeer-header h2 {
@@ -170,7 +171,7 @@ export default({
                     display: flex;
                     left: -3rem;
                 }
-
+                
                     .detailedBeer_wrapper-item-img img {
                         width: 8rem;
                         height: 8rem;
@@ -186,6 +187,11 @@ export default({
                         margin: 1rem;
                     }
 
+                    .detailedBeer_wrapper-item-content-line-subject {
+                        font-size: 1rem;
+                        font-weight: bold;
+                    }
+
                 .detailedBeer_wrapper_left-beer {
                     display: flex;
                     flex-direction: row;
@@ -194,7 +200,7 @@ export default({
                     border-radius: 1rem;
                     padding: 2rem;
                     margin-bottom: 2rem;
-                    max-width: 30rem;
+                    max-width: 40rem;
                 }
 
                     .detailedBeer_wrapper-item-img-beer {
@@ -202,9 +208,14 @@ export default({
                         left: -3rem;
                     }
 
-                        .detailedBeer_wrapper-item-img-beer img {
+                        .real_img-beer {
                             width: 5rem;
                             height: 18rem;
+                        }
+
+                        .default_img-beer {
+                            width: 10rem;
+                            height: 12rem;
                         }
 
                 .detailedBeer_wrapper_left-method {
@@ -215,6 +226,7 @@ export default({
                     border-radius: 1rem;
                     padding: 2rem;
                     margin-bottom: 2rem;
+                    max-width: 40rem;
                 }
 
 
@@ -226,18 +238,23 @@ export default({
                     border-radius: 1rem;
                     padding: 2rem;
                     margin-bottom: 2rem;
+                    max-width: 40rem;
                 }
 
             .detailedBeer-wrapper_right {
+                display: flex;
                 flex-direction: column;
+                padding: 2rem;
+                max-width: 30rem;
             }
 
                 .detailedBeer_wrapper_right-ingredientsColumn {
+                    align-items: center;
                     background: var(--vt-c-white-mute);
                     border-radius: 1rem;
-                    padding: 2rem;
+                    padding-top: 0.2rem;
+                    padding-bottom: 0.2rem;
                     margin-bottom: 2rem;
-                    min-width: 30rem;
                 }
 
                     .detailedBeer_wrapper_right-ingredientsRow {
@@ -263,13 +280,13 @@ export default({
 
                 .detailedBeer_wrapper_right-extraInfo {
                     display: flex;
-                    flex-direction: column;
+                    flex-direction: row;
                     align-items: center;
                     background: var(--vt-c-white-mute);
                     border-radius: 1rem;
                     padding: 2rem;
                     margin-bottom: 2rem;
-                    width: inherit;
+                    max-width: 30rem;
                 }
 
 
