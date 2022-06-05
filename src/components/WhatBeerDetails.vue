@@ -321,6 +321,15 @@ export default({
                 text-decoration: none;
                 color: black;
                 font-weight: bolder;
+                width: 8rem;
+                margin-left: 3rem;
             }
+
+                .showmore:hover {
+                    background: orange;
+                    padding: 0.3rem;
+                    border-radius: 1rem;
+                    color: white;
+                }
 
 </style>
