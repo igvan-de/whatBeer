@@ -199,6 +199,7 @@ export default({
                 }
                 
                     .detailedBeer_wrapper-item-img img {
+                        filter: saturate(2) sepia(0.20) drop-shadow(5px 5px 4px rgba(161, 158, 153, 0.5));
                         width: 8rem;
                         height: 8rem;
                     }
@@ -227,6 +228,7 @@ export default({
                     padding: 2rem;
                     margin-bottom: 2rem;
                     max-width: 40rem;
+                    filter: drop-shadow(5px 5px 4px rgba(161, 158, 153, 0.5));
                 }
 
                     .detailedBeer_wrapper-item-img-beer {
@@ -237,11 +239,13 @@ export default({
                         .real_img-beer {
                             width: 5rem;
                             height: 18rem;
+                            filter: saturate(2) sepia(0.20) drop-shadow(5px 5px 4px rgba(161, 158, 153, 0.5));
                         }
 
                         .default_img-beer {
                             width: 10rem;
                             height: 12rem;
+                            filter: saturate(2) sepia(0.20) drop-shadow(5px 5px 4px rgba(161, 158, 153, 0.5));
                         }
 
                 .detailedBeer_wrapper_left-method {
@@ -253,6 +257,7 @@ export default({
                     padding: 2rem;
                     margin-bottom: 2rem;
                     max-width: 40rem;
+                    filter: drop-shadow(5px 5px 4px rgba(161, 158, 153, 0.5));
                 }
 
 
@@ -265,6 +270,7 @@ export default({
                     padding: 2rem;
                     margin-bottom: 2rem;
                     max-width: 40rem;
+                    filter: drop-shadow(5px 5px 4px rgba(161, 158, 153, 0.5));
                 }
 
             .detailedBeer-wrapper_right {
@@ -281,6 +287,7 @@ export default({
                     padding-top: 0.2rem;
                     padding-bottom: 0.2rem;
                     margin-bottom: 2rem;
+                    filter: drop-shadow(5px 5px 4px rgba(161, 158, 153, 0.5));
                 }
 
                     .detailedBeer_wrapper_right-ingredientsRow {
@@ -313,6 +320,7 @@ export default({
                     padding: 2rem;
                     margin-bottom: 2rem;
                     max-width: 30rem;
+                    filter: drop-shadow(5px 5px 4px rgba(161, 158, 153, 0.5));
                 }
 
             .showmore {
