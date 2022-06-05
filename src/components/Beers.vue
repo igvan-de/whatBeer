@@ -1,6 +1,6 @@
 <template>
-    <section>
-      <div class="listedBeers"
+    <section class="listedBeers_wrapper">
+      <div class="listedBeers_wrapper-beers"
       v-for="beer in listedBeers"
       :key="beer.id">
         <div class="aboutBeer">
@@ -11,20 +11,44 @@
           <img :src="beer.image_url">
         </div>
       </div>
+      <div class="listedBeers_wrapper-pagination">
+        <button
+          v-if="pageNumber > 1"
+          @click="paginationPrevious">
+          previous
+        </button>
+        <button
+          v-if="pageNumber < 13"
+          @click="paginationNext">
+          next
+        </button>
+      </div>
     </section>
 </template>
 <script>
 export default({
   data: () => ({
-    return: {}
+    pageNumber: 1,
   }),
-  methods: () => {
+  methods: {
     /**
      * Three methods needed:
      * 1. to go to details of a beer
      * 2. pagination next 25 beers
      * 3. pagination first 25 beers
      */
+    paginationNext() {
+      if (this.pageNumber < 13) {
+        this.pageNumber++;
+      }
+      this.$store.dispatch("fetchBeersPagination", this.pageNumber);
+    },
+    paginationPrevious() {
+      if (this.pageNumber > 1) {
+        this.pageNumber--;
+      }
+      this.$store.dispatch("fetchBeersPagination", this.pageNumber);
+    }
   },
   computed: {
     listedBeers() {
@@ -39,7 +63,7 @@ export default({
 <style scoped>
 @import '../assets/base.css';
 
-.listedBeers {
+.listedBeers_wrapper-beers {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -67,6 +91,11 @@ export default({
   .beerImg img {
     width: 5rem;
     height: 15rem;
+  }
+
+  .listedBeers_wrapper-pagination {
+    display: flex;
+    justify-content: center;
   }
 
 @media (max-width: 1024px) {

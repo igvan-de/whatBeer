@@ -28,30 +28,24 @@ getters: {
 mutations: {
     FETCHBEERS(state, payload) {
         state.listedBeers = payload;
-        console.log(state.listedBeers);
+        console.log('beers', state.listedBeers);
     },
     FETCHRECOMMENDATIONS(state, payload) {
         state.recommendedBeers = payload;
-        console.log('recom', state.recommendedBeers);
     },
     DELETERECOMMENDATIONS(state) {
         if (state.recommendedBeers != null) {
-            console.log('before delete', state.recommendedBeers);
             state.recommendedBeers = [];
-            console.log('after delete', state.recommendedBeers);
         }
     },
     FETCHRANDOMBEERS(state, payload, i) {
         if (state.randomBeers.length > 2) {
             state.randomBeers = [];    
         }
-        console.log(i);
         state.randomBeers.push(payload);
-        console.log('randomBeers', state.randomBeers);
     },
     FETCHBEERDETAILS(state, payload) {
         state.detailedBeer = payload[0];
-        console.log('detailed beer', state.detailedBeer);
     },
     CLOSEDETAILS(state, payload){}
 },
@@ -65,10 +59,10 @@ actions: {
     },
     fetchRecommendations({commit}, payload) {
         axios
-        .get(`https://api.punkapi.com/v2/beers?food=${payload}`)
-        .then(result =>{
-            commit('FETCHRECOMMENDATIONS', result.data)
-        });
+            .get(`https://api.punkapi.com/v2/beers?food=${payload}`)
+            .then(result =>{
+                commit('FETCHRECOMMENDATIONS', result.data)
+            });
     },
     deleteRecommendations({commit}) {
         commit('DELETERECOMMENDATIONS');
@@ -76,19 +70,25 @@ actions: {
     fetchRandomBeers({commit}) {
         for (let i = 0; i < 3; i++) {
             axios
-            .get(`https://api.punkapi.com/v2/beers/random`)
-            .then(result =>{
-                commit('FETCHRANDOMBEERS', result.data)
-            });
+                .get(`https://api.punkapi.com/v2/beers/random`)
+                .then(result =>{
+                    commit('FETCHRANDOMBEERS', result.data)
+                });
         }
     },
     fetchBeerDetails({commit}, payload) {
         axios
-        .get(`https://api.punkapi.com/v2/beers/${payload}`)
-        .then(result =>{
-            commit('FETCHBEERDETAILS', result.data)
-        });
+            .get(`https://api.punkapi.com/v2/beers/${payload}`)
+            .then(result =>{
+                commit('FETCHBEERDETAILS', result.data)
+            });
     },
-
+    fetchBeersPagination({commit}, payload) {
+        axios
+            .get(`https://api.punkapi.com/v2/beers?page=${payload}`)
+            .then(result =>{
+                commit('FETCHBEERS', result.data)
+            });
+    }
 }
 })

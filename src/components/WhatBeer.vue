@@ -11,20 +11,27 @@
           <img :src="beer.image_url">
         </div>
       </div>
+      <button
+        @click="pageNumber += 1, pagination">
+        next
+      </button>
     </section>
 </template>
 <script>
 export default({
   data: () => ({
-    return: {}
+    pageNumber: 0,
   }),
-  methods: () => {
+  methods: {
     /**
      * Three methods needed:
      * 1. to go to details of a beer
      * 2. pagination next 25 beers
      * 3. pagination first 25 beers
      */
+    pagination() {
+      this.$store.dispatch("fetchBeersPagination", pageNumber);
+    }
   },
   computed: {
     listedBeers() {
