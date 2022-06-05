@@ -55,17 +55,23 @@
                         </div>
                         <div class="detailedBeer_wrapper-item-contentRows">
                             <h2 class="content-header">Ingredients</h2>
-                            <div 
-                            v-for="hop of beer.ingredients.hops"
+                            <div
+                            v-for="(hop, index) in beer.ingredients.hops"
                             :key="hop"
                             class="detailedBeer_wrapper-item-content">
-                                <ul><span class="detailedBeer_wrapper-item-content-line-subject">Name:</span> {{hop.name}}</ul>
-                                <ul><span class="detailedBeer_wrapper-item-content-line-subject">Attribute:</span> {{hop.attribute}}</ul>
-                                <ul><span class="detailedBeer_wrapper-item-content-line-subject">When to add:</span> {{hop.add}}</ul>
-                                <ul><span class="detailedBeer_wrapper-item-content-line-subject">Amount:</span> {{hop.amount.value}} {{hop.amount.unit}}</ul>
-                                <hr class="detailedBeer_wrapper-item-content-line">
+                                <div v-if="index < hop_limit">
+                                    <ul><span class="detailedBeer_wrapper-item-content-line-subject">Name:</span> {{hop.name}}</ul>
+                                    <ul><span class="detailedBeer_wrapper-item-content-line-subject">Attribute:</span> {{hop.attribute}}</ul>
+                                    <ul><span class="detailedBeer_wrapper-item-content-line-subject">When to add:</span> {{hop.add}}</ul>
+                                    <ul><span class="detailedBeer_wrapper-item-content-line-subject">Amount:</span> {{hop.amount.value}} {{hop.amount.unit}}</ul>
+                                    <hr class="detailedBeer_wrapper-item-content-line">
+                                </div>
                                 <!-- display only first 3 and if there a re more, add see more option -->
                             </div>
+                            <a href="javascript:void(0)"
+                            v-if="beer.ingredients.hops.length > hop_limit || all_hops"
+                            class="showmore"
+                            @click="simple_toggle(default_limit, beer.ingredients.hops.length, 'hop')">{{ hop_limit===3?'Show more': 'Hide more'}}</a>
                         </div>
                     </div>
                     <hr class="detailedBeer_wrapper_right-ingredientsRow-line" />
@@ -75,13 +81,19 @@
                         </div>
                         <div class="detailedBeer_wrapper-item-contentRows">
                             <div 
-                            v-for="malt of beer.ingredients.malt"
+                            v-for="(malt, index) of beer.ingredients.malt"
                             :key="malt"
                             class="detailedBeer_wrapper-item-content">
-                                <ul><span class="detailedBeer_wrapper-item-content-line-subject">Name:</span> {{malt.name}}</ul>
-                                <ul><span class="detailedBeer_wrapper-item-content-line-subject">Amount:</span> {{malt.amount.value}} {{malt.amount.unit}}</ul>
-                                <hr class="detailedBeer_wrapper-item-content-line">
+                                <div v-if="index < malt_limit">
+                                    <ul><span class="detailedBeer_wrapper-item-content-line-subject">Name:</span> {{malt.name}}</ul>
+                                    <ul><span class="detailedBeer_wrapper-item-content-line-subject">Amount:</span> {{malt.amount.value}} {{malt.amount.unit}}</ul>
+                                    <hr class="detailedBeer_wrapper-item-content-line">
+                                </div>
                             </div>
+                            <a href="javascript:void(0)" 
+                            v-if="beer.ingredients.malt.length > malt_limit || all_malts"
+                            class="showmore"
+                            @click="simple_toggle(default_limit, beer.ingredients.malt.length, 'malt')">{{ malt_limit===3?'Show more': 'Hide more'}}</a>
                         </div>
                     </div>
                     <hr class="detailedBeer_wrapper_right-ingredientsRow-line">
@@ -113,10 +125,24 @@
 </template>
 <script>
 export default({
-    data: () => {
-        return {};
-    },
+    data: () => ({
+        default_limit: 3,
+        hop_limit: 3,
+        malt_limit: 3,
+        all_hops: false,
+        all_malts: false
+    }),
     methods: {
+        simple_toggle(default_limit, array_length, list) {
+            if (list == 'hop') {
+                this.all_hops = this.all_hops ? false : true;
+                this.hop_limit = (this.hop_limit === default_limit) ? array_length : default_limit;
+            }
+            if (list == 'malt') {
+                this.all_malts = this.all_malts ? false : true;
+                this.malt_limit = (this.malt_limit === default_limit) ? array_length : default_limit;
+            }
+        }
     },
     computed: {
         beer() {
@@ -289,5 +315,12 @@ export default({
                     max-width: 30rem;
                 }
 
+            .showmore {
+                display: flex;
+                justify-content: center;
+                text-decoration: none;
+                color: black;
+                font-weight: bolder;
+            }
 
 </style>
