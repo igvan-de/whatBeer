@@ -4,12 +4,20 @@
       v-for="beer in listedBeers"
       :key="beer.id">
         <div class="listedBeers_wrapper-beers">
+          <div class="listedBeers_wrapper-beerImg">
+            <img v-if="beer.image_url != null" :src="beer.image_url" class="real_img-beer">
+            <img v-else src="../assets/images/beer.png" class="default_img-beer">
+          </div>
           <div class="listedBeers_wrapper-aboutBeer">
             <h3>{{beer.name}}</h3>
             <p>{{beer.tagline}}</p>
-          </div>
-          <div class="listedBeers_wrapper-beerImg">
-            <img :src="beer.image_url">
+            <RouterLink 
+            to="/beer-details" 
+            class="listedBeers_wrapper-aboutBeer-learnMore"
+            @click="getDetailsBeer(beer.id)">
+              <p>Learn more</p>
+              <img src="../assets/images/right-arrow-roundImg.png">
+          </RouterLink>
           </div>
         </div>
       </div>
@@ -54,6 +62,9 @@ export default({
         this.pageNumber--;
       }
       this.$store.dispatch("fetchBeersPagination", this.pageNumber);
+    },
+    getDetailsBeer(id) {
+      this.$store.dispatch('fetchBeerDetails', id);
     }
   },
   computed: {
@@ -76,7 +87,8 @@ export default({
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 65rem;
-  background-position: 0rem;
+  background-position-x: right;
+  background-position-y: center;
   margin-bottom: 0.2rem;
 }
 
@@ -84,19 +96,19 @@ export default({
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     padding: 5rem;
-    margin-right: 10rem;
-    background-color: var(--vt-c-black-mute-transparant);
-    border-radius: 0 2rem 2rem 0;
-    
+    gap: 2rem;
+    margin-left: 5rem;
+    border-block-start: 2px solid orange;
+    background-color: rgba(255, 166, 0, 0.123);
+    border-radius: 2rem 0 0 2rem;
   }
 
     .listedBeers_wrapper-aboutBeer {
       display: inherit;
       flex-direction: column;
-      color: white;
-      min-width: 20rem;
+      color: black;
       padding: 2rem;
     }
 
@@ -116,10 +128,39 @@ export default({
       justify-content: flex-end;
     }
 
-    .listedBeers_wrapper-beerImg img {
-      width: 5rem;
-      height: 15rem;
+      .real_img-beer {
+        width: 5rem;
+        height: 15rem;
+      }
+
+      .default_img-beer {
+        width: 9rem;
+        height: 11rem;
+      }
+
+    .listedBeers_wrapper-aboutBeer-learnMore {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: black;
+      margin-top: 2rem;
     }
+
+      .listedBeers_wrapper-aboutBeer-learnMore img {
+        width: 1.4rem;
+        height: 1.4rem;
+      }
+
+      .listedBeers_wrapper-aboutBeer-learnMore p {
+        font-size: 1rem;
+      }
+
+      .listedBeers_wrapper-aboutBeer-learnMore:hover {
+        transform: scale(110%);
+        font-weight: 900;
+      }
 
     .listedBeers_wrapper-pagination {
       display: flex;
