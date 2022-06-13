@@ -66,7 +66,6 @@
                                     <ul><span class="detailedBeer_wrapper-item-content-line-subject">Amount:</span> {{hop.amount.value}} {{hop.amount.unit}}</ul>
                                     <hr class="detailedBeer_wrapper-item-content-line">
                                 </div>
-                                <!-- display only first 3 and if there a re more, add see more option -->
                             </div>
                             <a href="javascript:void(0)"
                             v-if="beer.ingredients.hops.length > hop_limit || all_hops"
